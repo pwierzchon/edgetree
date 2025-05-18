@@ -14,5 +14,6 @@ interface EdgeRepository {
     fun getEdges(fromId: Int): List<EdgeRecord>
     fun getEdgesReverse(fromId: Int): EdgeRecord?
     fun getEdgesReverse(nodes: List<Int>, nodesToExclude: HashSet<Int>): List<EdgeRecord>
+    fun findCircularReference(edge: Edge): Boolean
 
 }

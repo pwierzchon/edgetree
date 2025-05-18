@@ -1,6 +1,7 @@
 package pl.destino.edgetree.repository
 
 import org.jooq.DSLContext
+import org.jooq.impl.DSL.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Repository
 import pl.destino.edgetree.api.model.Edge
@@ -66,6 +67,10 @@ class EdgeRepositoryImpl(@Autowired private val jooq: DSLContext): EdgeRepositor
             .where(EDGE.TO_ID.`in`(nodes))
             .and(EDGE.FROM_ID.notIn(nodesToExclude))
             .toList()
+    }
+
+    override fun findCircularReference(edge: Edge): Boolean {
+        return jooq.fetchValue(exists(selectOne().from(EDGE).where(EDGE.TO_ID.eq(edge.toId))))
     }
 
 }

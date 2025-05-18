@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import pl.destino.edgetree.api.model.ExceptionMessage
+import pl.destino.edgetree.exception.CircularReferenceConstraintException
 import pl.destino.edgetree.exception.DuplicateEdgeException
 import pl.destino.edgetree.exception.EdgeNotFoundException
 import pl.destino.edgetree.exception.RootNotFoundException
@@ -25,6 +26,11 @@ class ExceptionControllerAdvice {
     @ExceptionHandler
     fun handleRootNotFoundException(ex: RootNotFoundException): ResponseEntity<ExceptionMessage> {
         return getErrorResponse(ex.message, HttpStatus.NOT_FOUND)
+    }
+
+    @ExceptionHandler
+    fun handleCircularReferenceConstraintException(ex: CircularReferenceConstraintException): ResponseEntity<ExceptionMessage> {
+        return getErrorResponse(ex.message, HttpStatus.BAD_REQUEST)
     }
 
     @ExceptionHandler

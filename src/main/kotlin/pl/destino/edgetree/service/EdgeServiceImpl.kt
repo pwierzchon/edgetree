@@ -3,6 +3,7 @@ package pl.destino.edgetree.service
 import org.springframework.stereotype.Service
 import pl.destino.edgetree.api.model.Edge
 import pl.destino.edgetree.db.tables.records.EdgeRecord
+import pl.destino.edgetree.exception.CircularReferenceConstraintException
 import pl.destino.edgetree.exception.DuplicateEdgeException
 import pl.destino.edgetree.exception.EdgeNotFoundException
 import pl.destino.edgetree.repository.EdgeRepository
@@ -16,11 +17,13 @@ class EdgeServiceImpl(private val repository: EdgeRepository): EdgeService {
     }
 
     override fun addEdge(edge: Edge): Edge? {
-        if (!repository.findEdge(edge)) {
+        if (repository.findEdge(edge)) {
+            throw DuplicateEdgeException("$edge already exists in the database!")
+        } else if (repository.findCircularReference(edge)) {
+            throw CircularReferenceConstraintException("$edge would cause a circular reference. Request rejected.")
+        }else {
             repository.saveEdge(EdgeRecord(edge.fromId, edge.toId))
             return edge
-        } else {
-            throw DuplicateEdgeException("$edge already exists in the database!")
         }
     }
 
