@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "6aeb74a8-3d47-41b7-ad1d-5d40f2fefdc3",
+		"name": "Edge Tree",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5304215"
+	},
+	"item": [
+		{
+			"name": "addEdge",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"fromId\": 1,\r\n        \"toId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edge",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteEdge",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"fromId\": 1,\r\n        \"toId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/edge",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"edge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getTree",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tree?root=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tree"
+					],
+					"query": [
+						{
+							"key": "root",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,88 @@
+databaseChangeLog:
+- changeSet:
+    id:  1
+    author:  patryk.wierzchon
+    labels: create-table
+    comment: create table which stores tree edges as pairs of from-to integers
+    changes:
+      - createTable:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                type:  int
+            - column:
+                name:  to_id
+                type:  int
+-  changeSet:
+     id:  2
+     author:  patryk.wierzchon
+     label: add constraints
+     changes:
+       - addPrimaryKey:
+           clustered: true
+           columnNames: from_id, to_id
+           constraintName: pk_edge
+           tableName: edge
+           validate: true
+       -  addNotNullConstraint:
+           columnDataType:  int
+           columnName:  from_id
+           tableName:  edge
+           validate:  true
+       - addNotNullConstraint:
+           columnDataType: int
+           columnName: to_id
+           tableName: edge
+           validate: true
+- changeSet:
+    id:  3
+    author:  patryk.wierzchon
+    labels: insert-data
+    comment: populate edge table
+    changes:
+      - insert:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                value: 1
+            - column:
+                name:  to_id
+                value: 2
+      - insert:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                value: 1
+            - column:
+                name:  to_id
+                value: 3
+      - insert:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                value: 2
+            - column:
+                name:  to_id
+                value: 4
+      - insert:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                value: 2
+            - column:
+                name:  to_id
+                value: 5
+      - insert:
+          tableName:  edge
+          columns:
+            - column:
+                name:  from_id
+                value: 3
+            - column:
+                name:  to_id
+                value: 6
